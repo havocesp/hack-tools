@@ -1,9 +1,9 @@
 import urllib2
-import random
 from urlparse import urlparse
 from bs4 import BeautifulSoup
 from lib.core.settings import RANDOM_COMMON_COLUMN
 from lib.core.settings import SQLI_ERROR_REGEX
+import secrets
 
 
 class SQLiScanner(object):
@@ -17,7 +17,7 @@ class SQLiScanner(object):
         self.proxy = proxy  # Only HTTP proxy for now
         self.agent = agent
         self.tamper = tamper
-        self.int = random.randint(1, 13)
+        self.int = secrets.SystemRandom().randint(1, 13)
         self.error_syntax = ["'", "--", ';', '"', "/*", "'/*", "'--", '"--', "';", '";', '`',
                              " AND {int}={int}".format(int=self.int),
                              " OR {int}={int}".format(int=self.int),

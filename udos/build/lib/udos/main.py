@@ -1,11 +1,11 @@
 import pantheradesktop.kernel
 import sys
 import os
-import random
 import socket
 import json
 import SocketServer
 import time
+import secrets
 
 try:
     from PySide import QtCore, QtGui
@@ -140,7 +140,7 @@ class udosApp(pantheradesktop.kernel.pantheraDesktopApplication):
         else: # UDP flood
             sock = socket.socket(socket.AF_INET,socket.SOCK_DGRAM)
     
-        bytes=random._urandom(self.packetSize)
+        bytes=secrets.SystemRandom()._urandom(self.packetSize)
         addr=(self.target,self.destPort)
     
         try:

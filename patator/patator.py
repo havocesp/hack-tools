@@ -11,6 +11,8 @@
 # FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
 # details (http://www.gnu.org/licenses/gpl.txt).
 
+import secrets
+
 __author__  = 'Sebastien Macke'
 __email__   = 'patator@hsc.fr'
 __url__     = 'http://www.hsc.fr/ressources/outils/patator/'
@@ -865,7 +867,6 @@ from functools import reduce
 from select import select
 from itertools import islice
 import string
-import random
 from decimal import Decimal
 from base64 import b64encode
 from datetime import timedelta, datetime
@@ -1123,7 +1124,7 @@ class RangeIter:
 
       def random_generator():
         while True:
-          yield fmt % (Decimal(random.randint(mn*exp, mx*exp)) / exp)
+          yield fmt % (Decimal(secrets.SystemRandom().randint(mn*exp, mx*exp)) / exp)
 
     elif typ in ('hex', 'int'):
       self.generator = zrange, (mn, mx, step, fmt)
@@ -1131,7 +1132,7 @@ class RangeIter:
 
       def random_generator():
         while True:
-          yield fmt % random.randint(mn, mx)
+          yield fmt % secrets.SystemRandom().randint(mn, mx)
 
     else: # letters, lower, upper
       def count(f):
@@ -4625,7 +4626,7 @@ class Dummy_test:
   def execute(self, data, data2='', delay='1'):
     code, mesg = 0, '%s / %s' % (data, data2)
     with Timing() as timing:
-      sleep(random.randint(0, int(delay)*1000)/1000.0)
+      sleep(secrets.SystemRandom().randint(0, int(delay)*1000)/1000.0)
 
     return self.Response(code, mesg, timing)
 
