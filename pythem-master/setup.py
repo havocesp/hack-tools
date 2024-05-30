@@ -22,6 +22,7 @@
 
 from distutils.cmd import Command
 from setuptools import setup
+from security import safe_command
 
 class TestCommand(Command):
     user_options = []
@@ -38,7 +39,7 @@ class TestCommand(Command):
         tests = os.listdir('pythem/tests')
         for file in sorted(tests):
             if file.endswith('.py') and file != "full_test.py":
-                new_test = subprocess.call([sys.executable, 'pythem/tests/'+file])
+                new_test = safe_command.run(subprocess.call, [sys.executable, 'pythem/tests/'+file])
                 if new_test != 0:
                     break
 
