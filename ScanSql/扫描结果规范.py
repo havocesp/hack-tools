@@ -1,10 +1,11 @@
+from security import safe_requests
+
 my_file = open('/home/fang/.sqlmap/output/results-05192016_1144pm.csv')
 import re
 def get_title(ip):
-    import requests
     """给定网址返回title值"""
     try:
-        req = requests.get('%s'%ip,timeout=3)
+        req = safe_requests.get('%s'%ip,timeout=3)
         if req.status_code !=200:
             pass
         req.encoding = req.apparent_encoding
