@@ -1,5 +1,4 @@
 import argparse
-import random
 import sys
 import getpass
 from urllib2 import HTTPError
@@ -27,6 +26,7 @@ from lib.core.settings import integrity_check
 from lib.core.settings import update_pybelt
 from lib.core.settings import prompt
 from lib.core.settings import verify_py_version
+import secrets
 
 
 if __name__ == '__main__':
@@ -127,7 +127,7 @@ if __name__ == '__main__':
 
         if args.random_wordlist is True:  # Create a random wordlist
             LOGGER.info("Creating a random wordlist..")
-            create_wordlist(random.choice(WORDLIST_LINKS))
+            create_wordlist(secrets.choice(WORDLIST_LINKS))
             LOGGER.info("Wordlist created, resuming process..")
 
         if args.proxysearch is True:  # Find some proxies

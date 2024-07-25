@@ -20,11 +20,12 @@
 # Santiago Alessandri
 # Gastón Traberg
 
-import random, re
+import re
 from moleexceptions import FilterConfigException, FilterCreationError
 from queryfilters.base import BaseQueryFilter
 from queryfilters import register_query_filter
 from parameters import Parameter
+import secrets
 
 class CaseFilter(BaseQueryFilter):
     word_delimiters = {' ', '/', '(', ')'}
@@ -48,7 +49,7 @@ class CaseFilter(BaseQueryFilter):
                 # Fix for mysql 0xFFFF syntax. These filters should be
                 # applied before converting quoted strings to dbms specific
                 # string representation.
-                if query_list[i] != 'x' and random.randrange(0, 2) == 0:
+                if query_list[i] != 'x' and secrets.SystemRandom().randrange(0, 2) == 0:
                     if query_list[i].isupper():
                         query_list[i] = query_list[i].lower()
                     else:

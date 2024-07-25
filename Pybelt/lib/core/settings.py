@@ -3,11 +3,11 @@ import sys
 import uuid
 import re
 import logging
-import random
 import time
 import urllib2
 import base64
 from colorlog import ColoredFormatter
+import secrets
 
 log_level = logging.INFO
 logger_format = "[%(log_color)s%(asctime)s %(levelname)s%(reset)s] %(log_color)s%(message)s%(reset)s"
@@ -42,7 +42,7 @@ LEGAL_DISC = "[!] legal disclaimer: This program is intended for learning purpos
 LONG_LEGAL_DISCLAIMER = open("lib/text_files/legal.txt").read()
 
 # Random saying to display on the banner
-SAYING = random.choice(["The Hackers ToolBelt..",
+SAYING = secrets.choice(["The Hackers ToolBelt..",
                         "The Hackers Blackbelt..",
                         "The Hackers Multi-Tool..",
                         "The Hackers Gerber..",
@@ -55,8 +55,8 @@ CLONE_LINK = "https://github.com/ekultek/pybelt.git"
 MD5_CHECKSUM_URL = "https://raw.githubusercontent.com/Ekultek/Pybelt/master/docs/checksum.md5"
 
 # Random common column names, and random user agents
-RANDOM_COMMON_COLUMN = random.choice(open("{}/lib/text_files/common_columns.txt".format(PATH)).readlines())
-RANDOM_USER_AGENT = random.choice(open("{}/lib/text_files/agents.txt".format(PATH)).readlines()).strip()
+RANDOM_COMMON_COLUMN = secrets.choice(open("{}/lib/text_files/common_columns.txt".format(PATH)).readlines())
+RANDOM_USER_AGENT = secrets.choice(open("{}/lib/text_files/agents.txt".format(PATH)).readlines()).strip()
 
 # Search query regex to make sure the URLS have a GET parameter
 QUERY_REGEX = re.compile(r"(.*)[?|#](.*){1}\=(.*)")
