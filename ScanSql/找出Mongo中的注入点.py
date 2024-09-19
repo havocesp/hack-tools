@@ -5,19 +5,20 @@
   Purpose: 找出Mongo中存在sql注入的链接
   Created: 2016年06月26日
 """
-import requests
 
 from pymongo import MongoClient
 from bs4 import BeautifulSoup
 from urllib.parse import urlparse
 import re
+from security import safe_requests
+
 lisu = []
 #----------------------------------------------------------------------
 def get_info(host):
     """get some infomation of a host"""
     req = ''
     try:
-        req = requests.get(host,timeout=10)
+        req = safe_requests.get(host,timeout=10)
         req.encoding = req.apparent_encoding    
         result = re.findall(re.compile('<title>(.*?)</title>',re.L),req.text)
         return result[0]
