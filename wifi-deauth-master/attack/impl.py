@@ -1,5 +1,4 @@
 import logging
-import random
 import time
 
 from itertools import chain
@@ -9,6 +8,7 @@ from scapy.all import sendp, RadioTap, Dot11, Dot11ProbeResp,\
 
 from sniffer import WiFiSniffer
 from utils import ChannelFinder, WiFiInterface
+import secrets
 
 
 class WiFiDeauthAttack(object):
@@ -38,7 +38,7 @@ class WiFiDeauthAttack(object):
         self._log(message % 1)
         self._do_run()
         for i in range(executions-1):
-            idle_time = random.randint(*persistence_times)
+            idle_time = secrets.SystemRandom().randint(*persistence_times)
             self._log('Retrying again in %d seconds.' % idle_time)
             time.sleep(idle_time)
             self._log(message % (i+2))

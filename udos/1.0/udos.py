@@ -21,7 +21,8 @@
 import re
 import socket
 import getopt
-import sys,os,time,random,urllib
+import sys,os,time,urllib
+import secrets
 
 if sys.version_info[0] >= 3:
     import http.client as httplib
@@ -134,7 +135,7 @@ def eth_attack():
     else: # UDP flood
         sock = socket.socket(socket.AF_INET,socket.SOCK_DGRAM) # UDP
 
-    bytes=random._urandom(bytes_len)
+    bytes=secrets.SystemRandom()._urandom(bytes_len)
     addr=(target,port)
 
     try:
