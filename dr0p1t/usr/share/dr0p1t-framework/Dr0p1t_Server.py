@@ -4,6 +4,7 @@ from flask import Flask,render_template,request,current_app,abort
 import os,random,re,subprocess,shutil,sys,traceback
 from core.color import *
 from core import color
+from security import safe_command
 
 if sys.version_info[0]==3:
 	from urllib.parse import urlparse
@@ -105,7 +106,7 @@ def params():
 		valid_command += Nstr.group()
 
 	colored_print("+ After validation : "+valid_command,"g")
-	blah = subprocess.Popen(valid_command,shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
+	blah = safe_command.run(subprocess.Popen, valid_command,shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
 	output = (blah.stdout.read()+blah.stderr.read()).decode()
 	if "[*] Finished" in output:
 		colored_print("+ Exe generated!","b")
