@@ -20,8 +20,8 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 import httplib
-import requests
 import urllib2
+from security import safe_requests
 
 class http:
 	user_agent = "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:40.0) Gecko/20100101 Firefox/40.1"
@@ -42,7 +42,7 @@ class http:
 
 	def request(self,url):
 		try:
-			req = requests.get(url)
+			req = safe_requests.get(url)
 			return req.content
 		except Exception as error:
 			return error
