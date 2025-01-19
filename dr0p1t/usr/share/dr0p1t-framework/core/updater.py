@@ -10,8 +10,8 @@ elif sys.version_info[0]==2:
 def check():
 	response = urlopen('https://raw.githubusercontent.com/D4Vinci/Dr0p1t-Framework/master/core/version.txt')
 	version = response.read().decode('utf-8').strip()
-	f = open( os.path.join("core","version.txt"), 'r')
-	file_data = f.read().strip()
+	with open( os.path.join("core","version.txt"), 'r') as f:
+		file_data = f.read().strip()
 	if version != file_data:
 		colored_print('\n[*] New Version available ! Visit: https://github.com/D4Vinci/Dr0p1t-Framework\n',"y")
 	else:

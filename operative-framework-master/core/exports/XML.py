@@ -61,14 +61,14 @@ class export_module(object):
 			nb = 1
 			export_name_first = "<report"+str(total_report)+">"
 			export_name_end = "</report"+str(total_report)+">"
-			file_open = open("export/"+output_name,'a+')
-			file_open.write(export_name_first+"\n")
-			file_open.write("	<name>"+export_name+"</name>\n")
-			file_open.write("	<count>"+str(len(export_array))+"</count>\n")
-			for line in export_array:
-				if "-" in line[0]:
-					line = line[0].replace('-','')
-				line = "<value"+str(nb)+">"+line.strip()+"</value"+str(nb)+">"
-				file_open.write("	"+line+"\n")
-				nb+=1
-			file_open.write(export_name_end +"\n")
+			with open("export/"+output_name,'a+') as file_open:
+				file_open.write(export_name_first+"\n")
+				file_open.write("	<name>"+export_name+"</name>\n")
+				file_open.write("	<count>"+str(len(export_array))+"</count>\n")
+				for line in export_array:
+					if "-" in line[0]:
+						line = line[0].replace('-','')
+					line = "<value"+str(nb)+">"+line.strip()+"</value"+str(nb)+">"
+					file_open.write("	"+line+"\n")
+					nb+=1
+				file_open.write(export_name_end +"\n")

@@ -42,16 +42,12 @@ class udosArgsParsing (pantheradesktop.argsparsing.pantheraArgsParsing):
         except OSError as e:
             sys.stderr.write ("fork #2 failed: (%d) %s\n" % (e.errno, e.strerror) )
             sys.exit(1)
-    
-        # Now I am a daemon!
-    
-        # Redirect standard file descriptors.
-        si = open(stdin, 'r')
-        so = open(stdout, 'a+')
-        se = open(stderr, 'a+', 0)
-        os.dup2(si.fileno(), sys.stdin.fileno())
-        os.dup2(so.fileno(), sys.stdout.fileno())
-        os.dup2(se.fileno(), sys.stderr.fileno())
+        with open(stdin, 'r') as si:
+            with open(stdout, 'a+') as so:
+                with open(stderr, 'a+', 0) as se:
+                    os.dup2(si.fileno(), sys.stdin.fileno())
+                    os.dup2(so.fileno(), sys.stdout.fileno())
+                    os.dup2(se.fileno(), sys.stderr.fileno())
         
     def debug(self, data=''):
         self.app.logging.silent = False
