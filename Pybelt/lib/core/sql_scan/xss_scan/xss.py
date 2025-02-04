@@ -6,7 +6,7 @@ def get_context(url, proxy=None, header=None):
     """ Return the HTML of the site """
     proxies = {"http": proxy}  # Only supports HTTP for now
     agents = {"user-agent": header}
-    return requests.get(url, headers=agents, proxies=proxies).text
+    return requests.get(url, headers=agents, proxies=proxies, timeout=60).text
 
 
 def create_payload(url, script="alert('test');"):
