@@ -5,7 +5,7 @@
 
 def get_output(cmd):
 	x = subprocess.Popen( 'copy /b NUL out >> NUL',shell=True)
-	x = subprocess.Popen( "{} >> out".format(cmd),shell=True)
+	x = subprocess.Popen( "{} >> out".format(cmd),shell=False)
 	x.wait()
 	out = open("out","r").read()
 	ff=open("out","w");ff.close() #protecting from file recovery :D

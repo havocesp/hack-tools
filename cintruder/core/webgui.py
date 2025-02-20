@@ -47,7 +47,7 @@ class ClientThread(threading.Thread):
         self.socket.send(out)
         self.socket.close()
         if "run" in res and len(res["run"]):
-            subprocess.Popen(res["run"], shell=True)
+            subprocess.Popen(res["run"], shell=False)
 
 class Pages():
     def __init__(self):
@@ -557,7 +557,7 @@ class Command(object):
 
     def run(self, timeout):
         def target():
-            self.process = subprocess.Popen(self.cmd, shell=True)
+            self.process = subprocess.Popen(self.cmd, shell=False)
         thread = threading.Thread(target=target)
         thread.start()
         thread.join(timeout)

