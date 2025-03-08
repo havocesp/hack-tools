@@ -11,6 +11,8 @@
 # FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
 # details (http://www.gnu.org/licenses/gpl.txt).
 
+from security import safe_command
+
 __author__  = 'Sebastien Macke'
 __email__   = 'patator@hsc.fr'
 __url__     = 'http://www.hsc.fr/ressources/outils/patator/'
@@ -1164,7 +1166,7 @@ class ProgIter:
     self.prog = prog
 
   def __iter__(self):
-    p = subprocess.Popen(self.prog.split(' '), stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    p = safe_command.run(subprocess.Popen, self.prog.split(' '), stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     return p.stdout
 
 class Progress:
@@ -2646,7 +2648,7 @@ class LDAP_login:
   def execute(self, host, port='389', binddn='', bindpw='', basedn='', ssl='0'):
     uri = 'ldap%s://%s:%s' % ('s' if ssl != '0' else '', host, port)
     cmd = ['ldapsearch', '-H', uri, '-e', 'ppolicy', '-D', binddn, '-w', bindpw, '-b', basedn, '-s', 'one']
-    p = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, env={'LDAPTLS_REQCERT': 'never'})
+    p = safe_command.run(subprocess.Popen, cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, env={'LDAPTLS_REQCERT': 'never'})
     out = p.stdout.read()
     err = p.stderr.read()
 
@@ -3761,7 +3763,7 @@ class RDP_login:
     cmd = ['xfreerdp', '/v:%s:%d' % (host, int(port)), '/u:%s' % user, '/p:%s' % password, '/cert-ignore', '+auth-only', '/sec:nla']
 
     with Timing() as timing:
-      p = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+      p = safe_command.run(subprocess.Popen, cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
       out, err = p.communicate()
       code = p.returncode
 
@@ -4441,7 +4443,7 @@ class IKE_enum:
       cmd.extend(['--vendor', v])
 
     with Timing() as timing:
-      p = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+      p = safe_command.run(subprocess.Popen, cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
       out, err = p.communicate()
       code = p.returncode
 
@@ -4491,7 +4493,7 @@ class Unzip_pass:
     cmd = ['unzip', '-t', '-q', '-P', password, zipfile]
 
     with Timing() as timing:
-      p = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+      p = safe_command.run(subprocess.Popen, cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
       out, err = p.communicate()
       code = p.returncode
 
@@ -4528,7 +4530,7 @@ class Keystore_pass:
     cmd = ['keytool', '-list', '-keystore', keystore, '-storepass', password, '-storetype', storetype]
 
     with Timing() as timing:
-      p = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+      p = safe_command.run(subprocess.Popen, cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
       out, err = p.communicate()
       code = p.returncode
 

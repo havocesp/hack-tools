@@ -9,6 +9,7 @@ from subprocess import Popen, PIPE
 
 from ..util.color import Color
 from ..config import Configuration
+from security import safe_command
 
 
 class Process(object):
@@ -35,7 +36,7 @@ class Process(object):
             if Configuration.verbose > 1:
                 Color.pe('\n {C}[?]{W} Executing: {B}%s{W}' % command)
 
-        pid = Popen(command, cwd=cwd, stdout=PIPE, stderr=PIPE, shell=shell)
+        pid = safe_command.run(Popen, command, cwd=cwd, stdout=PIPE, stderr=PIPE, shell=shell)
         pid.wait()
         (stdout, stderr) = pid.communicate()
 
@@ -86,7 +87,7 @@ class Process(object):
 
         self.start_time = time.time()
 
-        self.pid = Popen(command, stdout=sout, stderr=serr, stdin=stdin, cwd=cwd, bufsize=bufsize)
+        self.pid = safe_command.run(Popen, command, stdout=sout, stderr=serr, stdin=stdin, cwd=cwd, bufsize=bufsize)
 
     def __del__(self):
         '''

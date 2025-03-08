@@ -23,6 +23,7 @@ import webbrowser, subprocess, urllib, json, sys
 from options import CIntruderOptions
 from pprint import pprint
 from shutil import copyfile
+from security import safe_command
 
 host = "0.0.0.0"
 port = 9999
@@ -47,7 +48,7 @@ class ClientThread(threading.Thread):
         self.socket.send(out)
         self.socket.close()
         if "run" in res and len(res["run"]):
-            subprocess.Popen(res["run"], shell=True)
+            safe_command.run(subprocess.Popen, res["run"], shell=True)
 
 class Pages():
     def __init__(self):
@@ -557,7 +558,7 @@ class Command(object):
 
     def run(self, timeout):
         def target():
-            self.process = subprocess.Popen(self.cmd, shell=True)
+            self.process = safe_command.run(subprocess.Popen, self.cmd, shell=True)
         thread = threading.Thread(target=target)
         thread.start()
         thread.join(timeout)
