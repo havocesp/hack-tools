@@ -5,7 +5,7 @@ import utils
 
 def run(url):
     filename = url.split('/')[-1]
-    r = requests.get(url, stream=True)
+    r = requests.get(url, stream=True, timeout=60)
     with open(filename, 'wb') as f:
         for chunk in r.iter_content(chunk_size=8000):
             if chunk:

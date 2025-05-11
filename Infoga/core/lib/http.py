@@ -42,7 +42,7 @@ class http:
 
 	def request(self,url):
 		try:
-			req = requests.get(url)
+			req = requests.get(url, timeout=60)
 			return req.content
 		except Exception as error:
 			return error
