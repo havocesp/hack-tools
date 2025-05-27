@@ -54,7 +54,7 @@ def PyInstaller():
         else: #ToDo: find all defaults location for .wine , or request it directely to the user if not found.
             installer = "wine /root/.wine/drive_c/Python27/python.exe /root/.wine/drive_c/Python27/Scripts/pyinstaller-script.py"
 
-    p = subprocess.Popen( installer + " -h",shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE )
+    p = subprocess.Popen( installer + " -h",shell=False, stdout=subprocess.PIPE,stderr=subprocess.PIPE )
     x = p.stdout.read().decode()
     if x == "":
         return False
@@ -267,7 +267,7 @@ def main():
                 else:
                     colored_print( " [!] Error in icon file,are you sure it's in icons folder ?","r" )
 
-            p     = subprocess.Popen( command.format(file_name+".py"), shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+            p     = subprocess.Popen( command.format(file_name+".py"), shell=False, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
             (output, err) = p.communicate()
             debug = output.decode() + "\n" + err.decode()
             pw    = p.wait()
@@ -283,7 +283,7 @@ def main():
             if args.upx:
                 if not args.nd:
                     colored_print( " [*] Compressing the final file..","g" )
-                x = subprocess.Popen(exe + os.path.join("utils","upx.exe") +" -9 "+os.path.join("output",file_name) ,shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE )
+                x = subprocess.Popen(exe + os.path.join("utils","upx.exe") +" -9 "+os.path.join("output",file_name) ,shell=False, stdout=subprocess.PIPE, stderr=subprocess.PIPE )
 
             os.chdir("..")
             make_copy( os.path.join("temp","dist",file_name),os.path.join("output",file_name) )

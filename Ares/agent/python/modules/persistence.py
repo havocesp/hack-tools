@@ -27,10 +27,10 @@ def install():
 
 def clean():
     subprocess.Popen("reg delete HKCU\Software\Microsoft\Windows\CurrentVersion\Run /f /v %s" % SERVICE_NAME,
-                         shell=True)
+                         shell=False)
     subprocess.Popen(
         "reg add HKCU\Software\Microsoft\Windows\CurrentVersion\RunOnce /f /v %s /t REG_SZ /d %s" % (SERVICE_NAME, "\"cmd.exe /c del %USERPROFILE%\\" + EXECUTABLE_NAME + "\""),
-                          shell=True)
+                          shell=False)
 
 
 def is_installed():
