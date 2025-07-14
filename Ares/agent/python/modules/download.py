@@ -1,11 +1,11 @@
-import requests
 
 import utils
+from security import safe_requests
 
 
 def run(url):
     filename = url.split('/')[-1]
-    r = requests.get(url, stream=True)
+    r = safe_requests.get(url, stream=True)
     with open(filename, 'wb') as f:
         for chunk in r.iter_content(chunk_size=8000):
             if chunk:

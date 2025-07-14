@@ -1,12 +1,12 @@
-import requests
 from lib.core.settings import LOGGER
+from security import safe_requests
 
 
 def get_context(url, proxy=None, header=None):
     """ Return the HTML of the site """
     proxies = {"http": proxy}  # Only supports HTTP for now
     agents = {"user-agent": header}
-    return requests.get(url, headers=agents, proxies=proxies).text
+    return safe_requests.get(url, headers=agents, proxies=proxies).text
 
 
 def create_payload(url, script="alert('test');"):
